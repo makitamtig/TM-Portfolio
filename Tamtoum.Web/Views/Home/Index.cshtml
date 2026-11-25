@@ -1,0 +1,575 @@
+﻿@model TamToum.Models.ViewModel.PortfolioViewModel
+
+@{
+    ViewData["Title"] = "Software Development & Selected Work";
+}
+
+
+<link rel="stylesheet" href="css/Footer.css">
+
+
+<!-- ==========================================
+     HERO
+========================================== -->
+
+<section class="hero" id="home">
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="hero-subtitle">
+                SOFTWARE DEVELOPMENT · DIGITAL SOLUTIONS
+            </span>
+
+            <h1>
+                From ideas to impactful
+                <span>digital solutions.</span>
+            </h1>
+
+            <p>
+                Thoughtfully designed software and digital
+                experiences, built to solve real-world problems.
+            </p>
+
+            <a href="#portfolio" class="btn-primary">
+                Explore selected work
+                <span>↗</span>
+            </a>
+
+            <div class="hero-details">
+                <span>ENGINEERING</span>
+                <span>DEVELOPMENT</span>
+                <span>DIGITAL EXPERIENCES</span>
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <div class="hero-image-frame">
+                <img src="~/Images/Projects/logo.png"
+                     alt="TamToum software development"
+                     asp-append-version="true" />
+            </div>
+
+            <div class="hero-image-label">
+                <span>01 / DIGITAL THINKING</span>
+                <span>TAMTOUM</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-bottom-line"></div>
+
+</section>
+
+
+<!-- ==========================================
+     ABOUT
+========================================== -->
+
+<section class="about-section" id="about">
+
+    <div class="container about-container">
+
+        <div class="section-kicker">
+            <span></span>
+            ABOUT TAMTOUM
+        </div>
+       @*  <div class="about-content"> *@
+        <h2>
+            Technology should make
+            <span>things better.</span>
+        </h2>
+
+        
+
+        <p>
+            TamToum is a software development portfolio
+            focused on creating practical digital products,
+            modern web applications, and reliable systems.
+        </p>
+
+        <div class="hero-image-frame">
+            <img src="~/Images/Projects/customization.png"
+                 alt="TamToum software development"
+                 asp-append-version="true" />
+        </div>
+
+        <div class="about-content">
+
+         
+
+           
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     PORTFOLIO
+========================================== -->
+
+<section class="portfolio-section" id="portfolio">
+
+    <div class="container">
+
+        <div class="portfolio-heading">
+
+            <div class="portfolio-heading-text">
+                <div class="section-kicker">
+                    <span></span>
+                    SELECTED WORK
+                </div>
+
+                <h2>
+                    Projects in <span>focus.</span>
+                </h2>
+            </div>
+
+            <div class="hero-image-frame">
+                <img src="~/Images/Projects/filter.png"
+                     alt="TamToum software development"
+                     asp-append-version="true" />
+            </div>
+
+        </div>
+           
+           @*  <p>
+                A selection of applications and digital
+                experiences, presented through their
+                features, interfaces, and functionality.
+            </p> *@
+
+
+
+
+@if (Model?.Projects != null && Model.Projects.Any())
+{
+    @foreach (var project in Model.Projects)
+    {
+        <article class="project-card">
+
+            <!-- PROJECT INFORMATION -->
+            <div class="project-header">
+                <div>
+                    <span class="project-number">
+                        PROJECT @project.Number
+                    </span>
+
+                    <span class="project-category">
+                        @project.Category
+                    </span>
+
+                    <h2>@project.Title</h2>
+                </div>
+
+                <p>@project.Description</p>
+            </div>
+
+            <!-- PROJECT COVER IMAGE -->
+            @if (!string.IsNullOrWhiteSpace(project.CoverImage))
+            {
+                <div class="project-cover">
+                    <img src="@Url.Content(project.CoverImage)"
+                         alt="@project.Title"
+                         loading="lazy" />
+                </div>
+            }
+
+            <!-- TECHNOLOGIES -->
+            @if (project.Technologies?.Any() == true)
+            {
+                <div class="project-technologies">
+                    @foreach (var technology in project.Technologies)
+                    {
+                        <span class="technology-chip">
+                            @technology
+                        </span>
+                    }
+                </div>
+            }
+
+            <!-- VIDEO GALLERY -->
+            @{
+                var videos = project.Videos?
+                    .Where(v => v != null &&
+                                !string.IsNullOrWhiteSpace(v.Url))
+                    .Take(6)
+                    .ToList();
+            }
+
+            @if (videos?.Any() == true)
+            {
+                <div class="project-media-gallery video-gallery"
+                     data-video-gallery>
+
+                    <h3 class="gallery-heading">
+                        Explore the platform
+                    </h3>
+
+                    <!-- MAIN VIDEO -->
+                    <div class="main-video-container">
+                        <video class="main-gallery-video"
+                               controls
+                               playsinline
+                               preload="metadata"
+                               poster="@(string.IsNullOrWhiteSpace(videos[0].Poster)
+                                   ? ""
+                                   : Url.Content(videos[0].Poster))"
+                               src="@Url.Content(videos[0].Url)">
+
+                            Your browser does not support video playback.
+                        </video>
+
+                        <div class="main-video-title">
+                            @videos[0].Title
+                        </div>
+                    </div>
+
+                    <!-- VIDEO THUMBNAILS -->
+                    @if (videos.Count > 1)
+                    {
+                        <div class="video-thumbnails">
+                            @foreach (var video in videos)
+                            {
+                                <button type="button"
+                                        class="video-thumbnail @(video == videos[0] ? "active" : "")"
+                                        data-video-src="@Url.Content(video.Url)"
+                                        data-video-poster="@(string.IsNullOrWhiteSpace(video.Poster)
+                                            ? ""
+                                            : Url.Content(video.Poster))"
+                                        data-video-title="@video.Title">
+
+                                    <div class="video-thumbnail-image">
+                                        @if (!string.IsNullOrWhiteSpace(video.Poster))
+                                        {
+                                            <img src="@Url.Content(video.Poster)"
+                                                 alt="@video.Title"
+                                                 loading="lazy" />
+                                        }
+                                        else
+                                        {
+                                            <div class="video-thumbnail-placeholder">
+                                                ▶
+                                            </div>
+                                        }
+
+                                        <span class="video-play-icon">▶</span>
+                                    </div>
+
+                                    <span class="video-thumbnail-title">
+                                        @video.Title
+                                    </span>
+                                </button>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+
+
+                    <!-- IMAGE GALLERY -->
+              
+                    
+                  
+                    @{
+                        var images = project.Images?
+                        .Where(img => !string.IsNullOrWhiteSpace(img.Url))
+                        .Take(20)
+                        .ToList();
+                    }
+
+                    @if (images?.Any() == true)
+                    {
+                        <div class="project-media-gallery image-gallery" data-image-gallery>
+
+                            <div class="media-heading">
+                                <h3 class="text-black">Images of This Project</h3>
+                            </div>
+
+                            <!-- 1. Main Featured Image + Title -->
+                            <div class="main-image-wrapper">
+                                <button type="button"
+                                        class="main-image-trigger"
+                                        data-gallery-image
+                                        data-image-src="@Url.Content(images[0].Url)"
+                                        data-image-title="@images[0].Title"
+                                        aria-label="Open @images[0].Title">
+
+                                    <img class="main-gallery-image"
+                                         src="@Url.Content(images[0].Url)"
+                                         alt="@images[0].Title"
+                                         loading="lazy" />
+                                </button>
+                                <!-- Visible title under the main image -->
+                                <p class="gallery-image-title mt-2 fw-semibold text-center">@images[0].Title</p>
+                            </div>
+
+                            <!-- 2. Thumbnails + Titles -->
+                            @if (images.Count > 1)
+                            {
+                                <div class="image-thumbnails">
+                                    @for (int imageIndex = 1; imageIndex < images.Count; imageIndex++)
+                                    {
+                                        var imageItem = images[imageIndex];
+
+                                        <button type="button"
+                                                class="image-thumbnail"
+                                                data-gallery-image
+                                                data-image-src="@Url.Content(imageItem.Url)"
+                                                data-image-title="@imageItem.Title"
+                                                aria-label="View @imageItem.Title">
+
+                                            <img src="@Url.Content(imageItem.Url)"
+                                                 alt="@imageItem.Title"
+                                                 loading="lazy" />
+
+                                            <!-- Visible title under each thumbnail -->
+                                            <span class="thumbnail-title d-block mt-1">@imageItem.Title</span>
+                                        </button>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+
+
+
+                    <!-- FULLSCREEN IMAGE GALLERY -->
+                    <dialog id="imageLightbox" class="image-lightbox">
+
+                        <div class="lightbox-content">
+
+                            <div class="lightbox-top">
+                                <span id="lightboxCounter">01 / 04</span>
+
+                                <button type="button"
+                                        id="lightboxClose"
+                                        aria-label="Close gallery">
+                                    &times;
+                                </button>
+                            </div>
+
+                            <button type="button"
+                                    id="lightboxPrev"
+                                    class="lightbox-nav prev"
+                                    aria-label="Previous image">
+                                &#10094;
+                            </button>
+
+                            <img id="lightboxImage"
+                                 src=""
+                                 alt="Project preview" />
+
+                            <button type="button"
+                                    id="lightboxNext"
+                                    class="lightbox-nav next"
+                                    aria-label="Next image">
+                                &#10095;
+                            </button>
+
+                            <div class="lightbox-bottom">
+                                <span id="lightboxTitle">PROJECT IMAGE GALLERY</span>
+                                <span>USE ← → TO NAVIGATE · ESC TO CLOSE</span>
+                            </div>
+
+
+                        </div>
+
+                    </dialog>
+            <!-- PROJECT FOOTER -->
+            <div class="project-end">
+                <span>
+                    END OF PROJECT @project.Number
+                </span>
+
+                <span>
+                    TAMTOUM / SELECTED WORK
+                </span>
+            </div>
+
+        </article>
+    }
+}
+else
+{
+    <p class="empty-projects">
+        Projects will be presented here soon.
+    </p>
+}
+
+
+    </div>
+
+</section>
+<!-- ==========================================
+     EXPERTISE
+========================================== -->
+<!-- WHAT WE BUILD SECTION -->
+
+
+<!-- UPCOMING PROJECTS -->
+<section class="expertise-section upcoming-section"
+         id="upcoming-projects"
+         data-image-gallery>
+    <div class="container">
+
+        <!-- SECTION HEADER -->
+        <div class="expertise-header">
+
+            <div class="section-kicker">
+                <span></span>
+                WHAT'S NEXT
+            </div>
+
+            <div class="expertise-heading">
+                <h2>
+                    The next chapter
+                    <span>is taking shape.</span>
+                </h2>
+
+                <p>
+                    A look at the digital experiences and innovative
+                    solutions we're currently bringing to life.
+                    Something exciting is always in development.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- FEATURED UPCOMING PROJECT -->
+        <div class="upcoming-featured">
+
+            <div class="upcoming-featured-image">
+
+                <img src="~/Images/Projects/Luxury Jewelry Tools E-Commerce Homepage.png"
+                     data-gallery-image
+                     data-image-src="@Url.Content("~/Images/Projects/Luxury Jewelry Tools E-Commerce Homepage.png")"
+                     alt="Jewelry Tools E-Commerce Homepage"
+                     asp-append-version="true" />
+
+              @*   <img src="~/Images/Projects/Luxury Jewelry Tools E-Commerce Homepage.png"
+                     alt="Featured upcoming TamToum project"
+                     asp-append-version="true" />
+ *@
+                <div class="project-status">
+                    <span></span>
+                    IN DEVELOPMENT
+                </div>
+
+                <div class="featured-project-overlay">
+
+                    <span>FEATURED PROJECT / 01</span>
+
+                    <h3>Next Luxury Jewelery Tools Website</h3>
+
+                    <p>
+                       Coming Soon Our Next Project 
+                       Jewelery Tools full stack Online Web
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="featured-project-footer">
+                <span>AN UPCOMING DIGITAL EXPERIENCE</span>
+                <span>02 — 04</span>
+            </div>
+
+        </div>
+
+        <!-- OTHER UPCOMING PROJECTS -->
+        <div class="upcoming-projects-grid">
+
+            <article class="upcoming-project-card">
+
+                <div class="upcoming-card-image">
+
+                    <img src="~/Images/Projects/Screenshot 2026-11-19 175221.png"
+                         data-gallery-image
+                         data-image-src="@Url.Content("~/Images/Projects/Screenshot 2026-11-19 175221.png")"
+                         alt="Online Clothing Store"
+                         asp-append-version="true" />
+                    <span class="project-status small-status">
+                        <span></span>
+                        IN DEVELOPMENT
+                    </span>
+
+                </div>
+
+                <div class="upcoming-card-content">
+
+                    <span class="upcoming-project-category">
+                        COMING SOON
+                    </span>
+
+                    <h3>Our Next Experience is The Online Clothing Store</h3>
+
+                    <p>
+                        A brief description of what makes
+                        this project interesting.
+                    </p>
+
+                    <span class="upcoming-project-number">
+                        PROJECT 03
+                    </span>
+
+                </div>
+
+            </article>
+
+            <article class="upcoming-project-card">
+
+                <div class="upcoming-card-image">
+
+                    <img src="~/Images/Projects/Screenshot 2026-11-19 175238.png"
+                         data-gallery-image
+                         data-image-src="@Url.Content("~/Images/Projects/Screenshot 2026-11-19 175238.png")"
+                         alt="Supermarket E-Commerce Website"
+                         asp-append-version="true" />
+                    <span class="project-status small-status">
+                        <span></span>
+                        COMING SOON
+                    </span>
+
+                </div>
+
+                <div class="upcoming-card-content">
+
+                    <span class="upcoming-project-category">
+                        CUSTOM SOFTWARE
+                    </span>
+
+                    <h3>Forth Project Name</h3>
+
+                    <p>
+                        Welcome To SuperMarket Sotre
+                    </p>
+
+                    <span class="upcoming-project-number">
+                        PROJECT 04
+                    </span>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+

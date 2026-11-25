@@ -1,0 +1,286 @@
+﻿@model TamToum.Models.ViewModel.ServicePageViewModel
+
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<link rel="stylesheet" href="css/Footer.css">
+<link rel="stylesheet" href="~/css/whatwebuildcss.css" asp-append-version="true" />
+
+
+
+<section class="service-hero">
+
+    <div class="service-hero-overlay"></div>
+
+    <div class="container service-hero-content">
+
+        <span class="service-eyebrow">
+            @Model.HeroLabel
+        </span>
+
+        <h1>
+            @Model.Title
+        </h1>
+
+        <h2>
+            @Model.Subtitle
+        </h2>
+
+        <p>
+            @Model.Description
+        </p>
+
+        <div class="service-hero-buttons">
+
+            <a href="/#contact" class="service-btn-primary">
+                Explore Possibilities
+                <i class="fas fa-arrow-right"></i>
+            </a>
+
+            <a href="/#portfolio" class="service-btn-secondary">
+                View Portfolio
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="service-hero-number">
+        @Model.HeroLabel
+    </div>
+
+</section>
+
+@* 
+<section class="service-overview">
+
+    <div class="container">
+
+        <div class="service-section-heading">
+
+            <span>OUR APPROACH</span>
+
+            <h2>
+                @Model.OverviewTitle
+            </h2>
+
+            <p>
+                @Model.Overview
+            </p>
+
+        </div>
+
+        <div class="service-divider"></div>
+
+        <div class="service-features-grid">
+
+            @for (int i = 0; i < Model.Features.Count; i++)
+            {
+                <div class="service-feature">
+
+                    <span class="feature-number">
+                        @((i + 1).ToString("00"))
+                    </span>
+
+                    <h3>
+                        @Model.Features[i]
+                    </h3>
+
+                    <div class="feature-line"></div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="service-benefits">
+
+    <div class="container">
+
+        <div class="service-section-heading">
+
+            <span>WHY IT MATTERS</span>
+
+            <h2>
+                Built Around Your Needs
+            </h2>
+
+            <p>
+                Our focus is on delivering practical digital
+                solutions with functionality, quality and
+                long-term value.
+            </p>
+
+        </div>
+
+        <div class="service-benefits-grid">
+
+            @foreach (var benefit in Model.Benefits)
+            {
+                <div class="service-benefit">
+
+                    <i class="fas fa-check-circle"></i>
+
+                    <span>@benefit</span>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="service-process">
+
+    <div class="container">
+
+        <div class="service-section-heading">
+
+            <span>HOW WE WORK</span>
+
+            <h2>
+                From Concept to Completion
+            </h2>
+
+            <p>
+                A structured approach helps ensure every
+                development stage has a clear purpose.
+            </p>
+
+        </div>
+
+        <div class="service-process-grid">
+
+            @for (int i = 0; i < Model.Process.Count; i++)
+            {
+                <div class="service-process-item">
+
+                    <span class="process-number">
+                        STEP @((i + 1).ToString("00"))
+                    </span>
+
+                    <h3>
+                        @Model.Process[i]
+                    </h3>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="service-technologies">
+
+    <div class="container">
+
+        <div class="service-section-heading">
+
+            <span>OUR TECHNOLOGY</span>
+
+            <h2>
+                Technologies & Tools
+            </h2>
+
+            <p>
+                We select appropriate technologies based on
+                the requirements and architecture of each project.
+            </p>
+
+        </div>
+
+        <div class="technology-list">
+
+            @foreach (var technology in Model.Technologies)
+            {
+                <span class="technology-item">
+                    @technology
+                </span>
+            }
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="service-closing">
+
+    <div class="container">
+
+        <span>THE NEXT STEP</span>
+
+        <h2>
+            @Model.ClosingTitle
+        </h2>
+
+        <p>
+            @Model.ClosingDescription
+        </p>
+
+        <a href="/#contact" class="service-btn-primary">
+            Discover More
+            <i class="fas fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="related-services">
+
+    <div class="container">
+
+        <div class="related-services-heading">
+
+            <span>EXPLORE MORE</span>
+
+            <h2>
+                Other Areas of Expertise
+            </h2>
+
+        </div>
+
+        <div class="related-services-grid">
+
+            @foreach (var service in Model.RelatedServices)
+            {
+                <a asp-controller="Services"
+                   asp-action="@service.Action"
+                   class="related-service-card">
+
+                    <span>@service.Title</span>
+
+                    <i class="fas fa-arrow-right"></i>
+
+                </a>
+            }
+
+        </div>
+
+        <div class="service-back-home">
+
+            <a href="/#home">
+                <i class="fas fa-arrow-left"></i>
+                Back to Homepage
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+ *@

@@ -1,0 +1,9 @@
+﻿@model TamToum.Models.ViewModel.ServicePageViewModel
+
+@{
+    ViewData["Title"] = Model.Title + " | Tamtoum";
+    ViewData["BodyClass"] = "service-page";
+}
+
+<partial name="_ServiceDetails" model="Model" />
+
